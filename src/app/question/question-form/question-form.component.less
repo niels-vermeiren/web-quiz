@@ -1,0 +1,27 @@
+@max550: ~"(max-width: 550px)";
+.form-container {
+  width: 500px;
+  margin: 0 auto;
+  .add-answer-btn {
+    display: block;
+    margin: 10px 0px;
+  }
+  .answers-input {
+    width: 450px;
+    float: left;
+  }
+
+  @media @max550 {
+    width: 100%;
+  }
+
+  .answer-group {
+    margin: 4px 0px;
+  }
+  .pointer-icon:hover {
+    cursor: pointer;
+  }
+  .hover-bg-lavender:hover {
+    background-color: lavenderblush;
+  }
+}

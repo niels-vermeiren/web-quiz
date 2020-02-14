@@ -1,0 +1,26 @@
+{
+  "questions": [
+    {
+      "id": 14,
+      "question": "wat is een appel?ee",
+      "type": "Multiple choice",
+      "answer": "Haacht",
+      "answers": [
+        "",
+        "",
+        "",
+        ""
+      ]
+    },
+    {
+      "id": 16,
+      "question": "wat is een appel?",
+      "type": "Multiple choice",
+      "answer": "",
+      "answers": [
+        "",
+        ""
+      ]
+    }
+  ]
+}

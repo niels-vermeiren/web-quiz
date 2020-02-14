@@ -1,0 +1,26 @@
+<table class="table table-dark table-striped table-hover">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>QUESTION</th>
+      <th>ANSWER</th>
+      <th>TYPE</th>
+      <th>EDIT</th>
+      <th>REMOVE</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let question of questions$ | async as question">
+      <td>{{question.id}}</td>
+      <td>{{question.question}}</td>
+      <td>{{question.answer}}</td>
+      <td>{{question.type}}</td>
+      <td>
+        <a class="fa fa-pencil-square pointer-icon" [routerLink]="['/questions/edit', question.id]"></a>
+      </td>
+      <td>
+        <a class="fa fa-remove pointer-icon" (click)="removeQuestion(question.id)"></a>
+      </td>
+    </tr>
+  </tbody>
+</table>

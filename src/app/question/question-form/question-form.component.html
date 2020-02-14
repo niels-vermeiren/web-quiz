@@ -1,0 +1,51 @@
+<div class="form-container">
+  <form [formGroup]="questionForm" (ngSubmit)="onSubmit()">
+    <div class="alert alert-danger" *ngIf="!questionForm.valid && this.showValidation">
+      <div *ngIf="question.invalid">
+        <div *ngIf="question.errors.required">Question is required.</div>
+      </div>
+      <div *ngIf="type.invalid">
+        <div *ngIf="type.errors.required">Type is required.</div>
+      </div>
+      <div *ngIf="answer.invalid">
+        <div *ngIf="answer.errors.required">Answer is required.</div>
+      </div>
+      <div *ngIf="answers.invalid">
+        <div *ngIf="answers.errors.required">Answers are required.</div>
+        <div *ngIf="answers.errors.minlength">Minimum 2 answers are required.</div>
+      </div>
+    </div>
+    <div class="alert alert-success" *ngIf="questionForm.valid && this.showValidation">We're all good!</div>
+    <div class="form-group">
+      <label for="questionInput">Question</label>
+      <input type="text" formControlName="question" class="form-control" id="questionInput">
+    </div>
+    <div class="form-group">
+      <label for="typeInput">Type</label>
+      <select class="form-control" id="typeInput" formControlName="type" (change)="changeType($event.target.value)">
+        <option *ngFor="let type of questionTypes" [value]="type">{{type}}</option>
+      </select>
+    </div>
+    <div class="form-group" formArrayName="answers" *ngIf="type.value == 'Multiple choice'">
+      <label>Answers</label>
+      <div *ngFor="let answer of answers.controls; let i=index">
+        <div class="input-group answer-group">
+          <div class="input-group-prepend">
+            <div class="input-group-text hover-bg-lavender">
+              <a class="fa fa-remove pointer-icon" (click)="removeAnswer(i)"></a>
+            </div>
+          </div>
+          <input formControlName="answers" type="text" placeholder="Answer {{i+1}}" class="form-control answers-input"
+          [formControlName]="i">
+        </div>
+      </div>
+      <input type="button" class="btn btn-secondary add-answer-btn" (click)="addAnswer()" value="Add Answer">
+    </div>
+    <div class="form-group">
+      <label for="answerInput">Correct Answer</label>
+      <input type="text" formControlName="answer" class="form-control" id="answerInput">
+    </div>
+    <button type="submit" [disabled]="!questionForm.valid && showValidation" class="btn btn-info"
+            (click)="this.showValidation = true">Opslaan</button>
+  </form>
+</div>

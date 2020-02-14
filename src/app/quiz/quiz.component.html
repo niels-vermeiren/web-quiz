@@ -1,0 +1,21 @@
+<button *ngIf="!currentQuestion" class="btn btn-dark" (click)="startQuiz()">Start examen</button>
+<div *ngIf="currentQuestion" class="quiz-container">
+  <div class="progress">
+    <div class="progress-bar" role="progressbar" [style.width.%]="(time/15)*100" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
+  </div>
+  {{score}}
+  <h2>{{currentQuestion.question}}</h2>
+  <form [formGroup]="questionForm" (ngSubmit)="onSubmit()">
+    <div *ngIf="currentQuestion.type == 'Normal'">
+      <label for="answerInput">Answer:</label>
+      <input class="form-control" formGroupName="answer" type="text" name="answer" id="answerInput"/>
+    </div>
+
+    <div *ngIf="currentQuestion.type == 'Multiple choice'">
+      <select class="form-control" formGroupName="answer" >
+        <option  *ngFor="let answer of currentQuestion.answers" value="{{answer}}"><a href="#">{{answer}}</a></option>
+      </select>
+    </div>
+    <button class="next-question btn btn-success" (click)="nextQuestion()">Volgende vraag</button>
+  </form>
+</div>
