@@ -11,6 +11,7 @@ import {RouterModule} from "@angular/router";
 import {ReactiveFormsModule} from "@angular/forms";
 import { QuestionFormComponent } from './question/question-form/question-form.component';
 import { QuizComponent } from './quiz/quiz.component';
+import {UnsavedChangesGuard} from "./shared/unsaved-changes-guard";
 
 
 @NgModule({
@@ -29,7 +30,7 @@ import { QuizComponent } from './quiz/quiz.component';
     RouterModule,
     ReactiveFormsModule
   ],
-  providers: [],
+  providers: [UnsavedChangesGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
