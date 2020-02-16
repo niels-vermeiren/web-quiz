@@ -1,7 +1,7 @@
 import {Question} from "./question";
 
 export class QuestionBuilder {
-  private _question: Question;
+  readonly _question: Question;
 
   constructor () {
     this._question = new Question();

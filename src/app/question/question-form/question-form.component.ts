@@ -17,7 +17,7 @@ export class QuestionFormComponent implements OnInit, OnDestroy {
   editMode = false;
   showValidation = false;
   questionForm:FormGroup;
-  subscription: Subscription = new Subscription();
+  subscription = new Subscription();
   submitted = false;
 
   constructor(private fb: FormBuilder, private route: ActivatedRoute, private service: QuestionService, private router: Router) {

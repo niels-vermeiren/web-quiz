@@ -14,11 +14,11 @@ import {QuestionService} from "../../question/shared/service/question.service";
 export class QuizComponent implements OnInit, OnDestroy {
 
   questions:any = [];
-  subscription: Subscription = new Subscription();
-  currentQuestionIndex: number = 0;
+  subscription = new Subscription();
+  currentQuestionIndex = 0;
   currentQuestion:Question;
-  score: number = 0;
-  time: number = 15;
+  score = 0;
+  time= 15;
   interval;
   questionForm:FormGroup;
 
