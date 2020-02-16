@@ -1,8 +1,8 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {Observable, throwError} from "rxjs";
-import {Question} from "../question";
 import {catchError, retry} from "rxjs/operators";
+import {Question} from "./question";
 
 @Injectable({
   providedIn: 'root'
@@ -34,16 +34,16 @@ export class QuestionService {
   createQuestion(question) : Observable<Question> {
     return this.http.post<Question>(this.apiUrl, JSON.stringify(question),
       this.httpOptions).pipe(
-        retry(1),
-        catchError(this.handleError)
+      retry(1),
+      catchError(this.handleError)
     )
   }
 
   updateQuestion(id, question): Observable<Question> {
     return this.http.put<Question>(this.apiUrl+id, question,
       this.httpOptions).pipe(
-        retry(1),
-        catchError(this.handleError)
+      retry(1),
+      catchError(this.handleError)
     )
   }
 
@@ -65,4 +65,3 @@ export class QuestionService {
     return throwError(errorMessage);
   }
 }
-

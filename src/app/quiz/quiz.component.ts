@@ -1,9 +1,10 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
-import {Question} from "../shared/question";
 import {Subscription} from "rxjs";
-import {QuestionService} from "../shared/service/question.service";
 import {Router} from "@angular/router";
 import {FormBuilder, FormGroup} from "@angular/forms";
+import {Question} from "../question/shared/question";
+import {QuestionService} from "../question/shared/question.service";
+
 
 @Component({
   selector: 'app-quiz',

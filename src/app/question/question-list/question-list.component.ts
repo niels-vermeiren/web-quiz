@@ -1,7 +1,7 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
-import {QuestionService} from "../../shared/service/question.service";
 import {Observable, Subscription} from "rxjs";
-import {Question} from "../../shared/question";
+import {QuestionService} from "../shared/question.service";
+import {Question} from "../shared/question";
 
 @Component({
   selector: 'app-question-list',

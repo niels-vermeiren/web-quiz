@@ -1,10 +1,10 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {FormArray, FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
-import {QuestionService} from "../../shared/service/question.service";
 import {ActivatedRoute, Router} from "@angular/router";
-import {Question} from "../../shared/question";
 import {Subscription} from "rxjs";
-import {QuestionBuilder} from "../../shared/question-builder";
+import {QuestionService} from "../shared/question.service";
+import {Question} from "../shared/question";
+import {QuestionBuilder} from "../shared/question-builder";
 
 @Component({
   selector: 'app-question-form',
