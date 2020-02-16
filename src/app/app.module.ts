@@ -6,24 +6,19 @@ import {AppComponent} from './app.component';
 import {NoopAnimationsModule} from '@angular/platform-browser/animations';
 import {NavigationComponent} from './navigation/navigation.component';
 import {RouterModule} from "@angular/router";
-import {QuizComponent} from './quiz/quiz.component';
 import {UnsavedChangesGuard} from "./shared/unsaved-changes-guard";
-import {QuestionModule} from "./question/question.module";
 import {ReactiveFormsModule} from "@angular/forms";
-
 
 @NgModule({
   declarations: [
     AppComponent,
-    NavigationComponent,
-    QuizComponent
+    NavigationComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     NoopAnimationsModule,
     RouterModule,
-    QuestionModule,
     ReactiveFormsModule
   ],
   providers: [UnsavedChangesGuard],
