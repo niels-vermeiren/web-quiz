@@ -8,7 +8,7 @@ import {NavigationComponent} from './navigation/navigation.component';
 import {RouterModule} from "@angular/router";
 import {UnsavedChangesGuard} from "./shared/unsaved-changes-guard";
 import {ReactiveFormsModule} from "@angular/forms";
-
+import {HttpClientModule} from "@angular/common/http";
 @NgModule({
   declarations: [
     AppComponent,
@@ -19,7 +19,8 @@ import {ReactiveFormsModule} from "@angular/forms";
     AppRoutingModule,
     NoopAnimationsModule,
     RouterModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    HttpClientModule
   ],
   providers: [UnsavedChangesGuard],
   bootstrap: [AppComponent]
