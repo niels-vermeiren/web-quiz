@@ -14,13 +14,26 @@
     },
     {
       "id": 16,
-      "question": "wat is een appel?",
+      "question": "sss",
+      "answer": "ss",
       "type": "Multiple choice",
-      "answer": "",
       "answers": [
-        "",
-        ""
+        "ss",
+        "sssz"
       ]
+    },
+    {
+      "id": 17,
+      "question": "ssss",
+      "answer": "qq",
+      "type": "Normal",
+      "answers": []
+    }
+  ],
+  "users": [
+    {
+      "email": "nielsvermeiren6@gmail.com",
+      "password": "bestPassw0rd"
     }
   ]
 }
