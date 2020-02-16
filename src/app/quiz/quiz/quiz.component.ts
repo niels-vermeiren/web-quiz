@@ -3,7 +3,7 @@ import {Subscription} from "rxjs";
 import {Router} from "@angular/router";
 import {FormBuilder, FormGroup} from "@angular/forms";
 import {Question} from "../../question/shared/question";
-import {QuestionService} from "../../question/shared/question.service";
+import {QuestionService} from "../../question/shared/service/question.service";
 
 
 @Component({
