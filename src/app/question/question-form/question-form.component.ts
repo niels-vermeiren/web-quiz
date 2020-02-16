@@ -18,6 +18,7 @@ export class QuestionFormComponent implements OnInit, OnDestroy {
   showValidation = false;
   questionForm:FormGroup;
   subscription: Subscription = new Subscription();
+  submitted = false;
 
   constructor(private fb: FormBuilder, private route: ActivatedRoute, private service: QuestionService, private router: Router) {
     this.questionForm = this.fb.group({
@@ -81,6 +82,7 @@ export class QuestionFormComponent implements OnInit, OnDestroy {
   }
 
   onSubmit() {
+    this.submitted = true;
     const question:Question  = new QuestionBuilder()
       .id(this.id.value)
       .answer(this.answer.value)
