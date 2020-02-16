@@ -8,8 +8,6 @@ import {HttpClientModule} from "@angular/common/http";
 import {ReactiveFormsModule} from "@angular/forms";
 import {UnsavedChangesGuard} from "../shared/unsaved-changes-guard";
 
-
-
 @NgModule({
   declarations: [QuestionListComponent, QuestionFormComponent],
   imports: [

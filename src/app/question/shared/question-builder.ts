@@ -3,6 +3,10 @@ import {Question} from "./question";
 export class QuestionBuilder {
   private _question: Question;
 
+  constructor () {
+    this._question = new Question();
+  }
+
   id(id: number): QuestionBuilder {
     this._question.id = id;
     return this;

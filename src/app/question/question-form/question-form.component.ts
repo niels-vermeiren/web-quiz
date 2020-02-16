@@ -81,7 +81,8 @@ export class QuestionFormComponent implements OnInit, OnDestroy {
   }
 
   onSubmit() {
-    const question:Question  = new QuestionBuilder().id(this.id.value)
+    const question:Question  = new QuestionBuilder()
+      .id(this.id.value)
       .answer(this.answer.value)
       .type(this.type.value)
       .answer(this.answer.value)
