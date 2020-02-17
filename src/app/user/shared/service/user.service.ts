@@ -9,7 +9,7 @@ import {User} from "../user";
 })
 export class UserService {
 
-  private apiUrl = "http://localhost:3000/users/"
+  private apiUrl = "http://localhost:3000/";
   private httpOptions = {
     headers: new HttpHeaders({
       'Content-Type': 'application/json'
@@ -33,7 +33,7 @@ export class UserService {
   }
 
   createUser(user) : Observable<User> {
-    return this.http.post<User>(this.apiUrl, JSON.stringify(user),
+    return this.http.post<User>(this.apiUrl + "register", JSON.stringify(user),
       this.httpOptions).pipe(
       retry(1),
       catchError(this.handleError)
@@ -41,7 +41,7 @@ export class UserService {
   }
 
   updateUser(id, user): Observable<User> {
-    return this.http.put<User>(this.apiUrl+id, user,
+    return this.http.put<User>(this.apiUrl + id, user,
       this.httpOptions).pipe(
       retry(1),
       catchError(this.handleError)
@@ -49,7 +49,7 @@ export class UserService {
   }
 
   deleteUser(id): Observable<User> {
-    return this.http.delete<User>(this.apiUrl+id, this.httpOptions).pipe(
+    return this.http.delete<User>(this.apiUrl + id, this.httpOptions).pipe(
       retry(1),
       catchError(this.handleError)
     )

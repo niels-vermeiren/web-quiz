@@ -7,6 +7,7 @@ const routes: Routes = [
   { path: 'questions', loadChildren: './question/question.module#QuestionModule', canActivate: [IsAuthenticatedGuard]},
   { path: 'users', loadChildren: './user/user.module#UserModule'},
   { path: 'login', redirectTo: 'users/login' },
+  { path: 'register', redirectTo: 'users/register' },
   { path: '', pathMatch: 'full', redirectTo: 'questions' },
 ];
 
