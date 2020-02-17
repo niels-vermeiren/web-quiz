@@ -3,7 +3,6 @@ import {FormArray, FormBuilder, FormControl, FormGroup, Validators} from "@angul
 import {ActivatedRoute, Router} from "@angular/router";
 import {Subscription} from "rxjs";
 import {Question} from "../shared/question";
-import {QuestionBuilder} from "../shared/question-builder";
 import {QuestionService} from "../shared/service/question.service";
 
 @Component({
@@ -82,16 +81,13 @@ export class QuestionFormComponent implements OnInit, OnDestroy {
   }
 
   onSubmit() {
-    this.submitted = true;
-    const question:Question  = new QuestionBuilder()
-      .id(this.id.value)
-      .question(this.question.value)
-      .answer(this.answer.value)
-      .type(this.type.value)
-      .answer(this.answer.value)
-      .answers(this.answers.value)
-      .build();
-
+    const question:Question = {
+      id: this.id.value,
+      question: this.question.value,
+      answer: this.answer.value,
+      answers: this.answers.value,
+      type: this.type.value
+    };
     if (this.editMode) this.updateQuestion(question);
     else this.createQuestion(question);
   }

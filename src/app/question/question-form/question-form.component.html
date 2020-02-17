@@ -46,6 +46,6 @@
       <input type="text" formControlName="answer" class="form-control" id="answerInput">
     </div>
     <button type="submit" [disabled]="!questionForm.valid && showValidation" class="btn btn-info"
-            (click)="this.showValidation = true">Opslaan</button>
+            (click)="this.showValidation = true; this.submitted = true;">Opslaan</button>
   </form>
 </div>
