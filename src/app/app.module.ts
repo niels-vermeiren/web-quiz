@@ -9,6 +9,7 @@ import {RouterModule} from "@angular/router";
 import {UnsavedChangesGuard} from "./shared/unsaved-changes-guard";
 import {ReactiveFormsModule} from "@angular/forms";
 import {HttpClientModule} from "@angular/common/http";
+import {IsAuthenticatedGuard} from "./shared/is-authenticated-guard";
 @NgModule({
   declarations: [
     AppComponent,
@@ -22,7 +23,7 @@ import {HttpClientModule} from "@angular/common/http";
     ReactiveFormsModule,
     HttpClientModule
   ],
-  providers: [UnsavedChangesGuard],
+  providers: [UnsavedChangesGuard, IsAuthenticatedGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

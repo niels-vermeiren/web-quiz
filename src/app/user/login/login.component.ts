@@ -28,6 +28,7 @@ export class LoginComponent {
     let user:User = { id: 0, email: this.email.value, password: this.password.value };
     this.authService.login(user).subscribe((data) => {
         LoginComponent.setAuthorizationDataOnLocalStorage(data.accessToken);
+
         return this.router.navigate(["/"]);
       },
       () => { this.errorMessage = "Wrong credentials." }

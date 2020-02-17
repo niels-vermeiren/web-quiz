@@ -30,12 +30,15 @@ export class AuthenticationService {
       { email: user.email, password: user.password }, this.httpOptions);
   }
 
-  isUserAuthenticated (userId, token): Observable<Response> {
+  isUserAuthenticated (): Observable<Response> {
+    let userId = localStorage.getItem("learnAngularUserId");
+    let token = localStorage.getItem("learnAngularToken");
+
     let headers = new HttpHeaders()
       .append("Authorization", "Bearer " + token)
       .append("Content-Type", "application/json");
 
-    return this.http.get<Response>(this.apiUrl + "600/users/" + userId, { headers: headers }).pipe(retry(1));
+    return this.http.get<Response>(this.apiUrl + "600/users/" + userId, { headers: headers });
   }
 
   handleError(error) {
