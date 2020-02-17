@@ -9,7 +9,7 @@ import {Router} from "@angular/router";
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.less']
 })
-export class LoginComponent implements OnInit {
+export class LoginComponent {
   loginForm:FormGroup;
   showValidation = false;
   errorMessage;
@@ -21,23 +21,25 @@ export class LoginComponent implements OnInit {
     });
   }
 
-  ngOnInit() {
-  }
-
   get email () { return this.loginForm.get('email'); }
   get password () { return this.loginForm.get('password'); }
 
   onSubmit() {
-    this.errorMessage = undefined;
     let user:User = { id: 0, email: this.email.value, password: this.password.value };
-    this.authService.login(user).subscribe(
-      (data) => {
-        localStorage.setItem('learnAngularToken', data.accessToken);
-        this.router.navigate(["/"])
+    this.authService.login(user).subscribe((data) => {
+        LoginComponent.setAuthorizationDataOnLocalStorage(data.accessToken);
+        return this.router.navigate(["/"]);
       },
-      () => {
-        this.errorMessage = "Wrong credentials."
-      }
+      () => { this.errorMessage = "Wrong credentials." }
     );
+  }
+
+  private static setAuthorizationDataOnLocalStorage(accessToken) {
+    localStorage.setItem('learnAngularUserId', LoginComponent.getUserIdFromToken(accessToken));
+    localStorage.setItem('learnAngularToken', accessToken);
+  }
+
+  private static getUserIdFromToken (accessToken): string {
+      return JSON.parse(atob(accessToken.split(".")[1])).sub;
   }
 }
