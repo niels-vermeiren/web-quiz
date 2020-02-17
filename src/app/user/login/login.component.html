@@ -1,0 +1,21 @@
+<form class="form-container" [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+  <div class="alert alert-danger" *ngIf="(!loginForm.valid && this.showValidation) || errorMessage">
+    <div *ngIf="email.invalid">
+      <div *ngIf="email.errors.required">E-mail is required.</div>
+      <div *ngIf="email.errors.email">Not a valid e-mail address.</div>
+    </div>
+    <div *ngIf="password.invalid">
+      <div *ngIf="password.errors.required">Password is required.</div>
+    </div>
+    <div *ngIf="errorMessage">
+      <div>{{errorMessage}}</div>
+    </div>
+  </div>
+  <label>E-mail:</label>
+  <input type="text" name="email" class="form-control form-input" formControlName="email"/>
+
+  <label>Password:</label>
+  <input type="password" name="password" class="form-control form-input" formControlName="password"/>
+
+  <button class="btn btn-success login-btn" type="submit" (click)="showValidation = true">Login</button>
+</form>

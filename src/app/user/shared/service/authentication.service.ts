@@ -17,8 +17,8 @@ export class AuthenticationService {
 
   constructor(private http:HttpClient) { }
 
-  register(user) : Observable<AuthenticationResponse> {
-    return this.http.post<AuthenticationResponse>(this.apiUrl+"/register", JSON.stringify(user),
+  register(user) : Observable<Response> {
+    return this.http.post<Response>(this.apiUrl + "register", JSON.stringify(user),
       this.httpOptions).pipe(
       retry(1),
       catchError(this.handleError)
@@ -26,11 +26,11 @@ export class AuthenticationService {
   }
 
   login(user) : Observable<AuthenticationResponse> {
-    return this.http.post<AuthenticationResponse>(this.apiUrl+"/login", JSON.stringify(user),
+    return this.http.post<AuthenticationResponse>(this.apiUrl + "login", { email: user.email, password: user.password},
       this.httpOptions).pipe(
-      retry(1),
-      catchError(this.handleError)
-    )
+        retry(1),
+        catchError(this.handleError)
+    );
   }
 
   handleError(error) {

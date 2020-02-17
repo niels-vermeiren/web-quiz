@@ -1,4 +1,12 @@
 {
+  "users": [
+    {
+      "email": "nielsvermeiren7@gmail.com",
+      "password": "$2a$10$JfDOUmF0lqq/UQ2OOf1N6.4pgf6H0sjpa3c94bwNAKlkEwDq3FkzC",
+      "username": "nielsvermeiren7@gmail.com",
+      "id": 1
+    }
+  ],
   "questions": [
     {
       "id": 14,
@@ -24,16 +32,10 @@
     },
     {
       "id": 17,
-      "question": "ssss",
+      "question": "ssss!",
       "answer": "qq",
       "type": "Normal",
       "answers": []
-    }
-  ],
-  "users": [
-    {
-      "email": "nielsvermeiren6@gmail.com",
-      "password": "bestPassw0rd"
     }
   ]
 }
