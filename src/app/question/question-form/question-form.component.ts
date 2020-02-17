@@ -73,11 +73,7 @@ export class QuestionFormComponent implements OnInit, OnDestroy {
   }
 
   changeType(value: any) {
-    if (value === 'Normal') {
-      this.answers.disable();
-      return;
-    }
-    this.answers.enable();
+    return value === 'Normal' ? this.answers.disable() : this.answers.enable();
   }
 
   onSubmit() {
@@ -88,8 +84,7 @@ export class QuestionFormComponent implements OnInit, OnDestroy {
       answers: this.answers.value,
       type: this.type.value
     };
-    if (this.editMode) this.updateQuestion(question);
-    else this.createQuestion(question);
+    return this.editMode ? this.updateQuestion(question) : this.createQuestion(question);
   }
 
   ngOnDestroy(): void {
