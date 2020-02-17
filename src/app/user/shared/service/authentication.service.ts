@@ -26,11 +26,16 @@ export class AuthenticationService {
   }
 
   login(user) : Observable<AuthenticationResponse> {
-    return this.http.post<AuthenticationResponse>(this.apiUrl + "login", { email: user.email, password: user.password},
-      this.httpOptions).pipe(
-        retry(1),
-        catchError(this.handleError)
-    );
+    return this.http.post<AuthenticationResponse>(this.apiUrl + "login",
+      { email: user.email, password: user.password }, this.httpOptions);
+  }
+
+  isUserAuthenticated (userId, token): Observable<Response> {
+    let headers = new HttpHeaders()
+      .append("Authorization", "Bearer " + token)
+      .append("Content-Type", "application/json");
+
+    return this.http.get<Response>(this.apiUrl + "600/users/" + userId, { headers: headers }).pipe(retry(1));
   }
 
   handleError(error) {
