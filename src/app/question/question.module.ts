@@ -7,9 +7,10 @@ import {HttpClientModule} from "@angular/common/http";
 import {ReactiveFormsModule} from "@angular/forms";
 import {UnsavedChangesGuard} from "../shared/unsaved-changes-guard";
 import {QuestionService} from "./shared/service/question.service";
+import {EnumToArrayPipe} from "./shared/enum-to-array-pipe";
 
 @NgModule({
-  declarations: [QuestionListComponent, QuestionFormComponent],
+  declarations: [QuestionListComponent, QuestionFormComponent, EnumToArrayPipe],
   imports: [
     CommonModule,
     RouterModule.forChild([

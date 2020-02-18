@@ -23,7 +23,7 @@
     <div class="form-group">
       <label for="typeInput">Type</label>
       <select class="form-control" id="typeInput" formControlName="type" (change)="changeType($event.target.value)">
-        <option *ngFor="let type of questionTypes" [value]="type">{{type}}</option>
+        <option *ngFor="let type of questionTypes | enumToArray" [value]="type">{{type}}</option>
       </select>
     </div>
     <div class="form-group" formArrayName="answers" *ngIf="type.value == 'Multiple choice'">

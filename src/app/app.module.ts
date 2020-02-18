@@ -10,10 +10,12 @@ import {UnsavedChangesGuard} from "./shared/unsaved-changes-guard";
 import {ReactiveFormsModule} from "@angular/forms";
 import {HttpClientModule} from "@angular/common/http";
 import {IsAuthenticatedGuard} from "./shared/is-authenticated-guard";
+import {EnumToArrayPipe} from "./shared/enum-to-array-pipe";
 @NgModule({
   declarations: [
     AppComponent,
-    NavigationComponent
+    NavigationComponent,
+    EnumToArrayPipe
   ],
   imports: [
     BrowserModule,

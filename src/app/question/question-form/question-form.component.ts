@@ -4,6 +4,7 @@ import {ActivatedRoute, Router} from "@angular/router";
 import {Subscription} from "rxjs";
 import {Question} from "../shared/question";
 import {QuestionService} from "../shared/service/question.service";
+import {QuestionType} from "../shared/question-type";
 
 @Component({
   selector: 'app-question-form',
@@ -11,13 +12,12 @@ import {QuestionService} from "../shared/service/question.service";
   styleUrls: ['./question-form.component.less']
 })
 export class QuestionFormComponent implements OnInit, OnDestroy {
-
-  questionTypes = ['Normal', 'Multiple choice'];
   editMode = false;
   showValidation = false;
   questionForm:FormGroup;
   subscription = new Subscription();
   submitted = false;
+  questionTypes = QuestionType;
 
   constructor(private fb: FormBuilder, private route: ActivatedRoute, private service: QuestionService, private router: Router) {
     this.questionForm = this.fb.group({
@@ -73,7 +73,7 @@ export class QuestionFormComponent implements OnInit, OnDestroy {
   }
 
   changeType(value: any) {
-    return value === 'Normal' ? this.answers.disable() : this.answers.enable();
+    return value === this.questionTypes.normal ? this.answers.disable() : this.answers.enable();
   }
 
   onSubmit() {
