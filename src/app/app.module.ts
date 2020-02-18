@@ -6,16 +6,15 @@ import {AppComponent} from './app.component';
 import {NoopAnimationsModule} from '@angular/platform-browser/animations';
 import {NavigationComponent} from './navigation/navigation.component';
 import {RouterModule} from "@angular/router";
-import {UnsavedChangesGuard} from "./shared/unsaved-changes-guard";
 import {ReactiveFormsModule} from "@angular/forms";
 import {HttpClientModule} from "@angular/common/http";
-import {IsAuthenticatedGuard} from "./shared/is-authenticated-guard";
-import {EnumToArrayPipe} from "./shared/enum-to-array-pipe";
+import {SharedModule} from "./shared/shared.module";
+import {AuthenticationService} from "./user/shared/service/authentication.service";
+
 @NgModule({
   declarations: [
     AppComponent,
-    NavigationComponent,
-    EnumToArrayPipe
+    NavigationComponent
   ],
   imports: [
     BrowserModule,
@@ -23,9 +22,10 @@ import {EnumToArrayPipe} from "./shared/enum-to-array-pipe";
     NoopAnimationsModule,
     RouterModule,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
+    SharedModule
   ],
-  providers: [UnsavedChangesGuard, IsAuthenticatedGuard],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  providers: [AuthenticationService]
 })
 export class AppModule { }

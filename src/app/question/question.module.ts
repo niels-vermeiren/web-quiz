@@ -7,19 +7,20 @@ import {HttpClientModule} from "@angular/common/http";
 import {ReactiveFormsModule} from "@angular/forms";
 import {UnsavedChangesGuard} from "../shared/unsaved-changes-guard";
 import {QuestionService} from "./shared/service/question.service";
-import {EnumToArrayPipe} from "./shared/enum-to-array-pipe";
+import {SharedModule} from "../shared/shared.module";
 
 @NgModule({
-  declarations: [QuestionListComponent, QuestionFormComponent, EnumToArrayPipe],
+  declarations: [QuestionListComponent, QuestionFormComponent],
   imports: [
     CommonModule,
     RouterModule.forChild([
-      { path: '', component: QuestionListComponent },
-      { path: 'new', component: QuestionFormComponent, canDeactivate: [UnsavedChangesGuard] },
-      { path: 'edit/:id', component: QuestionFormComponent, canDeactivate: [UnsavedChangesGuard] },
+      {path: '', component: QuestionListComponent},
+      {path: 'new', component: QuestionFormComponent, canDeactivate: [UnsavedChangesGuard]},
+      {path: 'edit/:id', component: QuestionFormComponent, canDeactivate: [UnsavedChangesGuard]},
     ]),
     HttpClientModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    SharedModule
   ],
   providers: [QuestionService]
 })
