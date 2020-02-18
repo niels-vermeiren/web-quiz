@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
+import {AuthenticationService} from "../user/shared/service/authentication.service";
+import {Observable} from "rxjs";
 
 @Component({
   selector: 'app-navigation',
@@ -7,6 +9,9 @@ import { Component, OnInit } from '@angular/core';
 })
 export class NavigationComponent {
   navbarOpen = false;
+  isAuthenticated$:Observable<boolean> = this.authService.isAuthenticated$;
+
+  constructor(private authService: AuthenticationService) {}
 
   toggleNavbar() {
     this.navbarOpen = !this.navbarOpen;

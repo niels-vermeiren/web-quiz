@@ -8,7 +8,7 @@
   </button>
   <div class="collapse navbar-collapse" [ngClass]="{ 'show': navbarOpen }">
     <ul class="navbar-nav mr-auto">
-      <li class="nav-item dropdown">
+      <li class="nav-item dropdown" *ngIf="isAuthenticated$ | async">
         <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true"
            aria-expanded="false">Gebruikers</a>
         <div class="dropdown-menu">
@@ -16,7 +16,7 @@
           <a class="dropdown-item" routerLink="users/new">Nieuw</a>
         </div>
       </li>
-      <li class="nav-item dropdown">
+      <li class="nav-item dropdown" *ngIf="isAuthenticated$ | async">
         <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true"
            aria-expanded="false">Vragen</a>
         <div class="dropdown-menu">

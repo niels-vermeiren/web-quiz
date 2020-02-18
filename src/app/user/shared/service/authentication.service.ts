@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from "@angular/common/http";
-import {Observable, throwError} from "rxjs";
-import {catchError, retry} from "rxjs/operators";
+import {BehaviorSubject, Observable, throwError} from "rxjs";
+import {catchError, share, tap} from "rxjs/operators";
 import {AuthenticationResponse} from "../authentication-response";
 
 @Injectable({
@@ -14,15 +14,10 @@ export class AuthenticationService {
       'Content-Type': 'application/json'
     })
   };
+  isAuthenticated$ = new BehaviorSubject<boolean>(false);
 
-  constructor(private http:HttpClient) { }
+  constructor(private http:HttpClient) {
 
-  register(user) : Observable<Response> {
-    return this.http.post<Response>(this.apiUrl + "register", JSON.stringify(user),
-      this.httpOptions).pipe(
-      retry(1),
-      catchError(this.handleError)
-    );
   }
 
   login(user) : Observable<AuthenticationResponse> {
@@ -38,10 +33,16 @@ export class AuthenticationService {
       .append("Authorization", "Bearer " + token)
       .append("Content-Type", "application/json");
 
-    return this.http.get<Response>(this.apiUrl + "600/users/" + userId, { headers: headers });
+    return this.http.get<Response>(this.apiUrl + "600/users/" + userId, { headers: headers })
+      .pipe(
+        share(),
+        tap(x => this.isAuthenticated$.next(true)),
+        catchError(this.handleError.bind(this))
+      );
   }
 
   handleError(error) {
+    this.isAuthenticated$.next(false);
     let errorMessage = '';
     if(error.error instanceof ErrorEvent) {
       errorMessage = error.error.message;
