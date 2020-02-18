@@ -27,13 +27,8 @@ export class AuthenticationService {
 
   isUserAuthenticated (): Observable<Response> {
     let userId = localStorage.getItem("learnAngularUserId");
-    let token = localStorage.getItem("learnAngularToken");
 
-    let headers = new HttpHeaders()
-      .append("Authorization", "Bearer " + token)
-      .append("Content-Type", "application/json");
-
-    return this.http.get<Response>(this.apiUrl + "600/users/" + userId, { headers: headers })
+    return this.http.get<Response>(this.apiUrl + "600/users/" + userId, this.httpOptions)
       .pipe(
         share(),
         tap(x => this.isAuthenticated$.next(true)),
