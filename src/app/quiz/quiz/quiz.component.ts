@@ -1,9 +1,11 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit, QueryList, ViewChild, ViewChildren} from '@angular/core';
 import {Subscription} from "rxjs";
 import {Router} from "@angular/router";
 import {FormBuilder, FormGroup} from "@angular/forms";
 import {Question} from "../../question/shared/question";
 import {QuestionService} from "../../question/shared/service/question.service";
+import {CountdownProgressBarComponent} from "../countdown-progress-bar/countdown-progress-bar.component";
+import {QuestionType} from "../../question/shared/question-type";
 
 
 @Component({
@@ -18,22 +20,22 @@ export class QuizComponent implements OnInit, OnDestroy {
   currentQuestionIndex = 0;
   currentQuestion:Question;
   score = 0;
-  time= 15;
-  interval;
-  questionForm:FormGroup;
+  quizForm:FormGroup;
+  @ViewChildren(CountdownProgressBarComponent)
+  countdownComponent: QueryList<CountdownProgressBarComponent>;
+  questionType = QuestionType;
 
   constructor(private service: QuestionService, private router:Router, private fb:FormBuilder) {
-    this.questionForm = this.fb.group({
+    this.quizForm = this.fb.group({
       answer: this.fb.control("")
     });
   }
 
   ngOnInit() {
+    console.log(this.countdownComponent);
   }
 
-  get answer() {
-    return this.questionForm.get("answer");
-  }
+  get answer() { return this.quizForm.get("answer"); }
 
   startQuiz() {
     this.loadQuestions();
@@ -47,27 +49,23 @@ export class QuizComponent implements OnInit, OnDestroy {
   }
 
   nextQuestion() {
+    if(this.answer.touched && this.answerIsCorrect()) this.score +=1;
     this.currentQuestion = this.questions[this.currentQuestionIndex++];
-    if(this.answerIsCorrect()) {
-      this.score +=1;
+    if (this.currentQuestionIndex - 1 == this.questions.length) {
+      this.currentQuestion = undefined;
+      if (this.countdownComponent) this.countdownComponent.first.stopTimer();
+      return;
     }
-    this.time = 15;
-    clearInterval(this.interval);
-    this.interval = setInterval(() => {
-      this.time--;
-      if(this.time < 0) {
-        this.time = 0;
-        this.nextQuestion();
-      }
-    }, 1000);
+    this.answer.patchValue("");
+    console.log(this.questions.length);
+
+    console.log(this.currentQuestionIndex);
+
+    if (this.countdownComponent) this.countdownComponent.first.resetTimer();
   }
 
   answerIsCorrect():boolean {
     return this.currentQuestion.answer == this.answer.value;
-  }
-
-  onSubmit() {
-
   }
 
   ngOnDestroy(): void {

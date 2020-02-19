@@ -1,21 +1,33 @@
-<button *ngIf="!currentQuestion" class="btn btn-dark" (click)="startQuiz()">Start examen</button>
-<div *ngIf="currentQuestion" class="quiz-container">
-  <div class="progress">
-    <div class="progress-bar" role="progressbar" [style.width.%]="(time/15)*100" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
+<button *ngIf="currentQuestionIndex == 0" class="btn btn-dark" (click)="startQuiz()">Start examen</button>
+<div *ngIf="currentQuestionIndex != 0" class="quiz-container">
+  <div >
+    <app-countdown-progress-bar time="20" (nextQuestion)="nextQuestion()"></app-countdown-progress-bar>
   </div>
-  {{score}}
-  <h2>{{currentQuestion.question}}</h2>
-  <form [formGroup]="questionForm" (ngSubmit)="onSubmit()">
-    <div *ngIf="currentQuestion.type == 'Normal'">
-      <label for="answerInput">Answer:</label>
-      <input class="form-control" formGroupName="answer" type="text" name="answer" id="answerInput"/>
-    </div>
-
-    <div *ngIf="currentQuestion.type == 'Multiple choice'">
-      <select class="form-control" formGroupName="answer" >
-        <option  *ngFor="let answer of currentQuestion.answers" value="{{answer}}"><a href="#">{{answer}}</a></option>
-      </select>
-    </div>
-    <button class="next-question btn btn-success" (click)="nextQuestion()">Volgende vraag</button>
-  </form>
+  <div class="alert alert-danger" *ngIf="currentQuestionIndex == questions.length + 1 && score < (questions.length)/2">
+    You failed this exam. Try again!
+  </div>
+  <div class="alert alert-success" *ngIf="currentQuestionIndex == questions.length + 1 && score >= (questions.length) / 2">
+    You succeeded! Superb!
+  </div>
+  <div id="question-index" *ngIf="currentQuestionIndex < questions.length">
+    <b>Question {{currentQuestionIndex}}</b>
+  </div>
+  <div id="question-score">
+    <b> Score: {{score}}/{{questions.length}} </b>
+  </div>
+  <div *ngIf="currentQuestion">
+    <h2>{{currentQuestion.question}}</h2>
+    <form [formGroup]="quizForm">
+      <div *ngIf="currentQuestion.type == questionType.normal">
+        <label for="answerInput">Answer:</label>
+        <input class="form-control" formControlName="answer" type="text" name="answer" id="answerInput"/>
+      </div>
+      <div *ngIf="currentQuestion.type == questionType.multipleChoice">
+        <select class="form-control" formControlName="answer" >
+          <option *ngFor="let answer of currentQuestion.answers" value="{{answer}}"><a href="#">{{answer}}</a></option>
+        </select>
+      </div>
+      <button class="next-question btn btn-success" (click)="nextQuestion()">Volgende vraag</button>
+    </form>
+  </div>
 </div>

@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-info">
   <a class="navbar-brand" href="#">
-    Theoretisch rijexamen vragen
+    Quiz
   </a>
   <button class="navbar-toggler" type="button"
     (click)="toggleNavbar()">
@@ -13,7 +13,7 @@
            aria-expanded="false">Gebruikers</a>
         <div class="dropdown-menu">
           <a class="dropdown-item" routerLink="users">Lijst</a>
-          <a class="dropdown-item" routerLink="users/new">Nieuw</a>
+          <a class="dropdown-item" routerLink="register">Nieuw</a>
         </div>
       </li>
       <li class="nav-item dropdown" *ngIf="isAuthenticated$ | async">
