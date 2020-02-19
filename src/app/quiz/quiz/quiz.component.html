@@ -7,7 +7,7 @@
     You failed this exam. Try again!
   </div>
   <div class="alert alert-success" *ngIf="currentQuestionIndex == questions.length + 1 && score >= (questions.length) / 2">
-    You succeeded! Superb!
+    You succeeded. Superb!
   </div>
   <div id="question-index" *ngIf="currentQuestionIndex < questions.length">
     <b>Question {{currentQuestionIndex}}</b>

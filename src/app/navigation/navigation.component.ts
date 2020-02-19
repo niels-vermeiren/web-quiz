@@ -16,4 +16,9 @@ export class NavigationComponent {
   toggleNavbar() {
     this.navbarOpen = !this.navbarOpen;
   }
+
+  logOut () {
+    localStorage.removeItem("learnAngularToken");
+    localStorage.removeItem("learnAngularToken");
+  }
 }
