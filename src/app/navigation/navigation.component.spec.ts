@@ -42,7 +42,7 @@ describe('NavigationComponent', () => {
   });
 
   it('after login isAuthenticated is true', inject([HttpTestingController, AuthenticationService],
-    fakeAsync((httpMock: HttpTestingController, service: AuthenticationService) => {
+    (httpMock: HttpTestingController, service: AuthenticationService) => {
     service.isUserAuthenticated().subscribe((data: {}) => {
       expect(data['status']).toEqual('ok');
     });
@@ -52,5 +52,5 @@ describe('NavigationComponent', () => {
     component.isAuthenticated$.subscribe( authenticated => {
       expect(authenticated).toBeTruthy();
     });
-  })));
+  }));
 });
