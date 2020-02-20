@@ -8,7 +8,7 @@ import {AuthenticationResponse} from "../authentication-response";
   providedIn: 'root'
 })
 export class AuthenticationService {
-  private apiUrl = "http://localhost:3000/"
+  apiUrl = "http://localhost:3000/"
   private httpOptions = {
     headers: new HttpHeaders({
       'Content-Type': 'application/json'

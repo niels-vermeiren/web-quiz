@@ -6,10 +6,11 @@ import {NoopAnimationsModule} from '@angular/platform-browser/animations';
 import {NavigationComponent} from './navigation/navigation.component';
 import {RouterModule} from "@angular/router";
 import {ReactiveFormsModule} from "@angular/forms";
-import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
+import {HTTP_INTERCEPTORS, HttpClient, HttpClientModule} from "@angular/common/http";
 import {SharedModule} from "./shared/shared.module";
 import {AuthenticationService} from "./user/shared/service/authentication.service";
 import {AuthorizationHttpInterceptor} from "./shared/authorization-http-interceptor";
+import {HttpClientTestingModule} from "@angular/common/http/testing";
 
 @NgModule({
   declarations: [
@@ -22,11 +23,14 @@ import {AuthorizationHttpInterceptor} from "./shared/authorization-http-intercep
     NoopAnimationsModule,
     RouterModule,
     ReactiveFormsModule,
+    HttpClientTestingModule,
     HttpClientModule,
     SharedModule
   ],
   bootstrap: [AppComponent],
   providers: [
+    HttpClient,
+    HttpClientModule,
     AuthenticationService,
     { provide: HTTP_INTERCEPTORS, useClass: AuthorizationHttpInterceptor, multi: true }
   ]
