@@ -9,7 +9,7 @@ import {User} from "../user";
 })
 export class UserService {
 
-  private apiUrl = "http://localhost:3000/";
+  private apiUrl = "http://localhost:3000/users/";
   private httpOptions = {
     headers: new HttpHeaders({
       'Content-Type': 'application/json'
@@ -25,23 +25,8 @@ export class UserService {
     );
   }
 
-  getUser(id) : Observable<User> {
-    return this.http.get<User>(this.apiUrl+id).pipe(
-      retry(1),
-      catchError(this.handleError)
-    )
-  }
-
   createUser(user) : Observable<User> {
     return this.http.post<User>(this.apiUrl + "register", JSON.stringify(user),
-      this.httpOptions).pipe(
-      retry(1),
-      catchError(this.handleError)
-    )
-  }
-
-  updateUser(id, user): Observable<User> {
-    return this.http.put<User>(this.apiUrl + id, user,
       this.httpOptions).pipe(
       retry(1),
       catchError(this.handleError)
