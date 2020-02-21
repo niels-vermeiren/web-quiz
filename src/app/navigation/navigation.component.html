@@ -13,7 +13,7 @@
            aria-expanded="false">Gebruikers</a>
         <div class="dropdown-menu">
           <a class="dropdown-item" routerLink="users">Lijst</a>
-          <a class="dropdown-item" routerLink="register">Nieuw</a>
+          <a class="dropdown-item" routerLink="register">Nieuwe gebruiker</a>
         </div>
       </li>
       <li class="nav-item dropdown" *ngIf="isAuthenticated$ | async">
@@ -30,9 +30,6 @@
       <li class="nav-item">
         <a *ngIf="!(isAuthenticated$ | async)" class="nav-link" routerLink="login">Login</a>
         <a *ngIf="isAuthenticated$ | async" class="nav-link" href="#" (click)="logOut()">Logout</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" routerLink="register">Register</a>
       </li>
     </ul>
   </div>
