@@ -13,7 +13,7 @@ import {QuestionType} from "../../question/shared/question-type";
   templateUrl: './quiz.component.html',
   styleUrls: ['./quiz.component.less']
 })
-export class QuizComponent implements OnInit, OnDestroy {
+export class QuizComponent implements OnDestroy {
 
   questions:any = [];
   subscription = new Subscription();
@@ -29,10 +29,6 @@ export class QuizComponent implements OnInit, OnDestroy {
     this.quizForm = this.fb.group({
       answer: this.fb.control("")
     });
-  }
-
-  ngOnInit() {
-    console.log(this.countdownComponent);
   }
 
   get answer() { return this.quizForm.get("answer"); }
@@ -57,11 +53,7 @@ export class QuizComponent implements OnInit, OnDestroy {
       return;
     }
     this.answer.patchValue("");
-    console.log(this.questions.length);
-
-    console.log(this.currentQuestionIndex);
-
-    if (this.countdownComponent) this.countdownComponent.first.resetTimer();
+    if (this.countdownComponent.first && this.countdownComponent.first) this.countdownComponent.first.resetTimer();
   }
 
   answerIsCorrect():boolean {
