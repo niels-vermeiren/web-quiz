@@ -36,7 +36,7 @@ describe('NavigationComponent', () => {
   });
 
   it('initial state isAuthenticated is false', () => {
-    component.isAuthenticated$.subscribe( authenticated=> {
+    component.isAuthenticated$.subscribe( authenticated => {
       expect(authenticated).toBeFalsy();
     });
   });
