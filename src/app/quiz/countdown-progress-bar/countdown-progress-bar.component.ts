@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, Input, OnDestroy, OnInit, Output} from '@angular/core';
 import {interval, Observable, Subscription} from "rxjs";
 
 @Component({
@@ -6,7 +6,7 @@ import {interval, Observable, Subscription} from "rxjs";
   templateUrl: './countdown-progress-bar.component.html',
   styleUrls: ['./countdown-progress-bar.component.less']
 })
-export class CountdownProgressBarComponent implements OnInit {
+export class CountdownProgressBarComponent implements OnInit, OnDestroy {
 
   @Input()
   time: number;
@@ -20,12 +20,16 @@ export class CountdownProgressBarComponent implements OnInit {
   ngOnInit() {
     this.maxTime = this.time;
     this.subscription = interval(1000).subscribe(() => {
-      this.time --;
-      if(this.time < 0) {
-        this.nextQuestion.emit();
-        this.resetTimer();
-      }
+      this.updateTime();
     });
+  }
+
+  updateTime () {
+    this.time --;
+    if(this.time < 0) {
+      this.nextQuestion.emit();
+      this.resetTimer();
+    }
   }
 
   resetTimer () {
@@ -34,6 +38,10 @@ export class CountdownProgressBarComponent implements OnInit {
 
   stopTimer () {
     this.time = 0;
+    this.subscription.unsubscribe();
+  }
+
+  ngOnDestroy() {
     this.subscription.unsubscribe();
   }
 }
