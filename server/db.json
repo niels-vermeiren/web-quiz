@@ -9,33 +9,46 @@
   ],
   "questions": [
     {
-      "id": 14,
-      "question": "wat is een appel?ee",
-      "type": "Multiple choice",
-      "answer": "Haacht",
+      "id": 18,
+      "question": "Hoeveel km/h mag je rijden in een fietsstraat?",
+      "answer": "20",
       "answers": [
-        "",
-        "",
-        "",
-        ""
-      ]
+        "10",
+        "20",
+        "50",
+        "30"
+      ],
+      "type": "Multiple choice"
     },
     {
-      "id": 16,
-      "question": "sss",
-      "answer": "ss",
-      "type": "Multiple choice",
-      "answers": [
-        "ss",
-        "sssz"
-      ]
+      "id": 19,
+      "question": "Hoe noemt het rode vlak op de rijbaan voor fietsers?",
+      "answer": "fietssugestiestrook",
+      "answers": [],
+      "type": "Normal"
     },
     {
-      "id": 17,
-      "question": "ssss!",
-      "answer": "qq",
-      "type": "Normal",
-      "answers": []
+      "id": 20,
+      "question": "Hoe zien gevaarsborden er uit?",
+      "answer": "Een rode driehoek",
+      "answers": [
+        "Een rode driehoek",
+        "Een rode omgekeerde driehoek",
+        "Een blauw, rond bord"
+      ],
+      "type": "Multiple choice"
+    },
+    {
+      "id": 21,
+      "question": "Wanneer schakel je best bij een dieselwagen?",
+      "answer": "Bij 2000 toeren",
+      "answers": [
+        "Bij 1500 toeren",
+        "Bij 2500 toeren",
+        "Bij 3000 toeren",
+        "Bij 2000 toeren"
+      ],
+      "type": "Multiple choice"
     }
   ]
 }
