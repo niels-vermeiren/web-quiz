@@ -21,8 +21,8 @@ export class QuizComponent implements OnDestroy {
   currentQuestion:Question;
   score = 0;
   quizForm:FormGroup;
-  @ViewChildren(CountdownProgressBarComponent)
-  countdownComponent: QueryList<CountdownProgressBarComponent>;
+  @ViewChild(CountdownProgressBarComponent, { static: false })
+  countdownComponent: CountdownProgressBarComponent;
   questionType = QuestionType;
 
   constructor(private service: QuestionService, private router:Router, private fb:FormBuilder) {
@@ -49,11 +49,11 @@ export class QuizComponent implements OnDestroy {
     this.currentQuestion = this.questions[this.currentQuestionIndex++];
     if (this.currentQuestionIndex - 1 == this.questions.length) {
       this.currentQuestion = undefined;
-      if (this.countdownComponent) this.countdownComponent.first.stopTimer();
+      if (this.countdownComponent) this.countdownComponent.stopTimer();
       return;
     }
     this.answer.patchValue("");
-    if (this.countdownComponent.first && this.countdownComponent.first) this.countdownComponent.first.resetTimer();
+    if (this.countdownComponent) this.countdownComponent.resetTimer();
   }
 
   answerIsCorrect():boolean {
