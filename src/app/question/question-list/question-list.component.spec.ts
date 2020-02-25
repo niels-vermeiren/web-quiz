@@ -32,13 +32,7 @@ describe('QuestionListComponent', () => {
   it('questions are retrieved successfully', inject([HttpTestingController, QuestionService],
     (httpMock: HttpTestingController, service: QuestionService) => {
       let questions:Question[] = [
-        {
-          id: 1,
-          type: 'Normal',
-          question: 'This is a question',
-          answer: 'The answer',
-          answers: []
-        }
+        { id: 1, type: 'Normal', question: 'This is a question', answer: 'The answer', answers: []}
       ];
       component.questions$.subscribe(question => {
         expect(question.question).toEqual(questions[0].question);
