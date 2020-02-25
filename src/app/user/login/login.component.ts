@@ -1,8 +1,8 @@
 import {Component} from '@angular/core';
-import {FormBuilder, FormGroup, Validators} from "@angular/forms";
-import {AuthenticationService} from "../shared/service/authentication.service";
-import {User} from "../shared/user";
-import {Router} from "@angular/router";
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {AuthenticationService} from '../shared/service/authentication.service';
+import {User} from '../shared/user';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -10,29 +10,15 @@ import {Router} from "@angular/router";
   styleUrls: ['./login.component.less']
 })
 export class LoginComponent {
-  loginForm:FormGroup;
+  loginForm: FormGroup;
   showValidation = false;
   errorMessage;
 
-  constructor(private fb: FormBuilder, private authService:AuthenticationService, private router: Router) {
+  constructor(private fb: FormBuilder, private authService: AuthenticationService, private router: Router) {
     this.loginForm = this.fb.group({
-      email: this.fb.control("", [Validators.required, Validators.email]),
-      password: this.fb.control("", Validators.required)
+      email: this.fb.control('', [Validators.required, Validators.email]),
+      password: this.fb.control('', Validators.required)
     });
-  }
-
-  get email () { return this.loginForm.get('email'); }
-  get password () { return this.loginForm.get('password'); }
-
-  onSubmit() {
-    let user:User = { id: 0, email: this.email.value, password: this.password.value };
-    this.authService.login(user).subscribe((data) => {
-        LoginComponent.setAuthorizationDataOnLocalStorage(data.accessToken);
-
-        return this.router.navigate(["/"]);
-      },
-      () => { this.errorMessage = "Wrong credentials." }
-    );
   }
 
   private static setAuthorizationDataOnLocalStorage(accessToken) {
@@ -40,7 +26,19 @@ export class LoginComponent {
     localStorage.setItem('learnAngularToken', accessToken);
   }
 
-  private static getUserIdFromToken (accessToken): string {
-      return JSON.parse(atob(accessToken.split(".")[1])).sub;
+  private static getUserIdFromToken(accessToken): string {
+    return JSON.parse(atob(accessToken.split('.')[1])).sub;
+  }
+
+  get email() { return this.loginForm.get('email'); }
+  get password() { return this.loginForm.get('password'); }
+
+  onSubmit() {
+    const user: User = { id: 0, email: this.email.value, password: this.password.value };
+    this.authService.login(user).subscribe((data) => {
+        LoginComponent.setAuthorizationDataOnLocalStorage(data.accessToken);
+        return this.router.navigate(['/']);
+      }, () => { this.errorMessage = 'Wrong credentials.'; }
+    );
   }
 }

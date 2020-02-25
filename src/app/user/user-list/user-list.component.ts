@@ -1,9 +1,7 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
-import {Observable, Subscription} from "rxjs";
-import {Question} from "../../question/shared/question";
-import {QuestionService} from "../../question/shared/service/question.service";
-import {UserService} from "../shared/service/user.service";
-import {User} from "../shared/user";
+import {Observable, Subscription} from 'rxjs';
+import {UserService} from '../shared/service/user.service';
+import {User} from '../shared/user';
 
 @Component({
   selector: 'app-user-list',
@@ -17,14 +15,14 @@ export class UserListComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.subscription = new Subscription();
-    this.loadUsers()
+    this.loadUsers();
   }
 
   loadUsers() {
     this.users$ = this.service.getUsers();
   }
 
-  removeUser(id:Number) {
+  removeUser(id: number) {
     this.subscription = this.service.deleteUser(id).subscribe((d) => this.loadUsers());
   }
 

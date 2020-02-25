@@ -1,10 +1,10 @@
 import {async, ComponentFixture, fakeAsync, inject, TestBed} from '@angular/core/testing';
 
 import {NavigationComponent} from './navigation.component';
-import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
-import {HttpClientTestingModule, HttpTestingController} from "@angular/common/http/testing";
-import {AuthenticationService} from "../user/shared/service/authentication.service";
-import {AuthorizationHttpInterceptor} from "../shared/authorization-http-interceptor";
+import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
+import {HttpClientTestingModule, HttpTestingController} from '@angular/common/http/testing';
+import {AuthenticationService} from '../user/shared/service/authentication.service';
+import {AuthorizationHttpInterceptor} from '../shared/authorization-http-interceptor';
 
 describe('NavigationComponent', () => {
   let component: NavigationComponent;
@@ -44,9 +44,9 @@ describe('NavigationComponent', () => {
   it('after login isAuthenticated is true', inject([HttpTestingController, AuthenticationService],
     (httpMock: HttpTestingController, service: AuthenticationService) => {
     service.isUserAuthenticated().subscribe((data: {}) => {
-      expect(data['status']).toEqual('ok');
+      expect(data.status).toEqual('ok');
     });
-    const req = httpMock.expectOne(service.apiUrl + '600/users/null');
+    const req = httpMock.expectOne(`${service.apiUrl}600/users/null`);
     expect(req.request.method).toEqual('GET');
     req.flush({status: 'ok'});
     component.isAuthenticated$.subscribe( authenticated => {

@@ -1,7 +1,7 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
-import {Observable, Subscription} from "rxjs";
-import {Question} from "../shared/question";
-import {QuestionService} from "../shared/service/question.service";
+import {Observable, Subscription} from 'rxjs';
+import {Question} from '../shared/question';
+import {QuestionService} from '../shared/service/question.service';
 
 @Component({
   selector: 'app-question-list',
@@ -15,14 +15,14 @@ export class QuestionListComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.subscription = new Subscription();
-    this.loadQuestions()
+    this.loadQuestions();
   }
 
   loadQuestions() {
    this.questions$ = this.service.getQuestions();
   }
 
-  removeQuestion(id:Number) {
+  removeQuestion(id: number) {
     this.subscription = this.service.deleteQuestion(id).subscribe((d) => this.loadQuestions());
   }
 

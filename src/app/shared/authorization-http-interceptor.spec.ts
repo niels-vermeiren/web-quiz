@@ -1,8 +1,8 @@
 import { AuthorizationHttpInterceptor } from './authorization-http-interceptor';
-import {TestBed} from "@angular/core/testing";
-import {HttpClientTestingModule, HttpTestingController} from "@angular/common/http/testing";
-import {HTTP_INTERCEPTORS} from "@angular/common/http";
-import {AuthenticationService} from "../user/shared/service/authentication.service";
+import {TestBed} from '@angular/core/testing';
+import {HttpClientTestingModule, HttpTestingController} from '@angular/common/http/testing';
+import {HTTP_INTERCEPTORS} from '@angular/common/http';
+import {AuthenticationService} from '../user/shared/service/authentication.service';
 
 describe('AuthorizationHttpInterceptor', () => {
   let service: AuthenticationService;
@@ -10,7 +10,7 @@ describe('AuthorizationHttpInterceptor', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [HttpClientTestingModule],
+      imports: [ HttpClientTestingModule ],
       providers: [
         AuthenticationService,
         {
@@ -28,7 +28,7 @@ describe('AuthorizationHttpInterceptor', () => {
     service.isUserAuthenticated().subscribe(response => {
       expect(response).toBeTruthy();
     });
-    const httpRequest = httpMock.expectOne(service.apiUrl+"600/users/null");
+    const httpRequest = httpMock.expectOne(`${service.apiUrl}600/users/null`);
     expect(httpRequest.request.headers.has('Authorization')).toBeTruthy();
   });
 });

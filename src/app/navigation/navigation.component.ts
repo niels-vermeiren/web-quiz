@@ -1,6 +1,6 @@
-import {Component, OnInit} from '@angular/core';
-import {AuthenticationService} from "../user/shared/service/authentication.service";
-import {Observable} from "rxjs";
+import {Component} from '@angular/core';
+import {AuthenticationService} from '../user/shared/service/authentication.service';
+import {Observable} from 'rxjs';
 
 @Component({
   selector: 'app-navigation',
@@ -9,7 +9,7 @@ import {Observable} from "rxjs";
 })
 export class NavigationComponent {
   navbarOpen = false;
-  isAuthenticated$:Observable<boolean> = this.authService.isAuthenticated$;
+  isAuthenticated$: Observable<boolean> = this.authService.isAuthenticated$;
 
   constructor(private authService: AuthenticationService) {}
 
@@ -17,8 +17,8 @@ export class NavigationComponent {
     this.navbarOpen = !this.navbarOpen;
   }
 
-  logOut () {
-    localStorage.removeItem("learnAngularToken");
-    localStorage.removeItem("learnAngularToken");
+  logOut() {
+    localStorage.removeItem('learnAngularToken');
+    localStorage.removeItem('learnAngularUserId');
   }
 }

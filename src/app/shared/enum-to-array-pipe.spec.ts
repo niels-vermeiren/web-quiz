@@ -1,5 +1,5 @@
 import {EnumToArrayPipe} from './enum-to-array-pipe';
-import {QuestionType} from "../question/shared/question-type";
+import {QuestionType} from '../question/shared/question-type';
 
 describe('EnumToArrayPipe', () => {
 
@@ -14,8 +14,8 @@ describe('EnumToArrayPipe', () => {
   });
 
   it('pipe transforms enum to an array of its values', () => {
-    let values: string[] = pipe.transform(QuestionType);
-    expect(values).toContain("Normal");
-    expect(values).toContain("Multiple choice");
+    const values: string[] = pipe.transform(QuestionType);
+    expect(values).toContain('Normal');
+    expect(values).toContain('Multiple choice');
   });
 });

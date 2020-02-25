@@ -1,11 +1,11 @@
 import {async, ComponentFixture, inject, TestBed} from '@angular/core/testing';
 
 import {QuestionListComponent} from './question-list.component';
-import {HttpClientModule} from "@angular/common/http";
-import {HttpClientTestingModule, HttpTestingController} from "@angular/common/http/testing";
-import {QuestionService} from "../shared/service/question.service";
-import {Question} from "../shared/question";
-import {RouterModule} from "@angular/router";
+import {HttpClientModule} from '@angular/common/http';
+import {HttpClientTestingModule, HttpTestingController} from '@angular/common/http/testing';
+import {QuestionService} from '../shared/service/question.service';
+import {Question} from '../shared/question';
+import {RouterModule} from '@angular/router';
 
 describe('QuestionListComponent', () => {
   let component: QuestionListComponent;
@@ -31,7 +31,7 @@ describe('QuestionListComponent', () => {
 
   it('questions are retrieved successfully', inject([HttpTestingController, QuestionService],
     (httpMock: HttpTestingController, service: QuestionService) => {
-      let questions:Question[] = [
+      const questions: Question[] = [
         { id: 1, type: 'Normal', question: 'This is a question', answer: 'The answer', answers: []}
       ];
       component.questions$.subscribe(question => {

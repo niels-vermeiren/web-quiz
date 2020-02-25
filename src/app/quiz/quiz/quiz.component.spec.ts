@@ -1,13 +1,13 @@
 import {async, ComponentFixture, inject, TestBed} from '@angular/core/testing';
 
 import {QuizComponent} from './quiz.component';
-import {ReactiveFormsModule} from "@angular/forms";
-import {RouterModule} from "@angular/router";
-import {APP_BASE_HREF} from "@angular/common";
-import {QuestionService} from "../../question/shared/service/question.service";
-import {HttpClientTestingModule, HttpTestingController} from "@angular/common/http/testing";
-import {Question} from "../../question/shared/question";
-import {CountdownProgressBarComponent} from "../countdown-progress-bar/countdown-progress-bar.component";
+import {ReactiveFormsModule} from '@angular/forms';
+import {RouterModule} from '@angular/router';
+import {APP_BASE_HREF} from '@angular/common';
+import {QuestionService} from '../../question/shared/service/question.service';
+import {HttpClientTestingModule, HttpTestingController} from '@angular/common/http/testing';
+import {Question} from '../../question/shared/question';
+import {CountdownProgressBarComponent} from '../countdown-progress-bar/countdown-progress-bar.component';
 
 describe('QuizComponent', () => {
   let component: QuizComponent;
@@ -37,7 +37,7 @@ describe('QuizComponent', () => {
 
   it('first question is loaded after component initialization', inject([HttpTestingController, QuestionService],
     (httpMock: HttpTestingController, service: QuestionService) => {
-      let questions: Question[] = [
+      const questions: Question[] = [
         {id: 1, type: 'Normal', question: 'This is the first question', answer: '', answers: []},
         {id: 2, type: 'Normal', question: 'This is the second question', answer: '', answers: []}
       ];
@@ -54,7 +54,7 @@ describe('QuizComponent', () => {
 
   it('score is incremented by one if the correct answer is given', inject([HttpTestingController, QuestionService],
     (httpMock: HttpTestingController, service: QuestionService) => {
-      let questions: Question[] = [
+      const questions: Question[] = [
         {id: 1, type: 'Normal', question: 'This is the first question', answer: 'the answer', answers: []},
       ];
       service.getQuestions().subscribe((data: {}) => {
@@ -73,7 +73,7 @@ describe('QuizComponent', () => {
     inject([HttpTestingController, QuestionService], (httpMock: HttpTestingController, service: QuestionService) => {
       spyOn(component, 'resetTimer');
       spyOn(component, 'stopTimer');
-      let questions: Question[] = [
+      const questions: Question[] = [
         {id: 1, type: 'Normal', question: 'This is the first d question', answer: 'the answer', answers: []},
       ];
       service.getQuestions().subscribe((data: {}) => {

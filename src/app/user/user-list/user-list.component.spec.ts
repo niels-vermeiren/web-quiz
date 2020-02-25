@@ -1,12 +1,11 @@
 import {async, ComponentFixture, inject, TestBed} from '@angular/core/testing';
 
 import {UserListComponent} from './user-list.component';
-import {RouterModule} from "@angular/router";
-import {HttpClientModule} from "@angular/common/http";
-import {HttpClientTestingModule, HttpTestingController} from "@angular/common/http/testing";
-import {QuestionService} from "../../question/shared/service/question.service";
-import {User} from "../shared/user";
-import {UserService} from "../shared/service/user.service";
+import {RouterModule} from '@angular/router';
+import {HttpClientModule} from '@angular/common/http';
+import {HttpClientTestingModule, HttpTestingController} from '@angular/common/http/testing';
+import {User} from '../shared/user';
+import {UserService} from '../shared/service/user.service';
 
 describe('UserListComponent', () => {
   let component: UserListComponent;
@@ -28,7 +27,7 @@ describe('UserListComponent', () => {
 
   it('users are retrieved successfully', inject([HttpTestingController, UserService],
     (httpMock: HttpTestingController, service: UserService) => {
-      let users:User[] = [
+      const users: User[] = [
         { id: 1, email: 'niels@gmail.com', password: 'This is a question' }
       ];
       component.users$.subscribe(user => {

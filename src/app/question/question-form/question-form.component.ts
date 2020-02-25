@@ -1,10 +1,10 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
-import {FormArray, FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
-import {ActivatedRoute, Router} from "@angular/router";
-import {Subscription} from "rxjs";
-import {Question} from "../shared/question";
-import {QuestionService} from "../shared/service/question.service";
-import {QuestionType} from "../shared/question-type";
+import {FormArray, FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
+import {ActivatedRoute, Router} from '@angular/router';
+import {Subscription} from 'rxjs';
+import {Question} from '../shared/question';
+import {QuestionService} from '../shared/service/question.service';
+import {QuestionType} from '../shared/question-type';
 
 @Component({
   selector: 'app-question-form',
@@ -14,17 +14,17 @@ import {QuestionType} from "../shared/question-type";
 export class QuestionFormComponent implements OnInit, OnDestroy {
   editMode = false;
   showValidation = false;
-  questionForm:FormGroup;
+  questionForm: FormGroup;
   subscription = new Subscription();
   submitted = false;
   questionTypes = QuestionType;
 
   constructor(private fb: FormBuilder, private route: ActivatedRoute, private service: QuestionService, private router: Router) {
     this.questionForm = this.fb.group({
-      id: this.fb.control(""),
-      question: this.fb.control("", Validators.required),
-      type: this.fb.control("", Validators.required),
-      answer: this.fb.control("", Validators.required),
+      id: this.fb.control(''),
+      question: this.fb.control('', Validators.required),
+      type: this.fb.control('', Validators.required),
+      answer: this.fb.control('', Validators.required),
       answers: this.fb.array([], [
         Validators.required, Validators.minLength(2)
       ])
@@ -35,38 +35,38 @@ export class QuestionFormComponent implements OnInit, OnDestroy {
   get question() { return this.questionForm.get('question'); }
   get type() { return this.questionForm.get('type'); }
   get answer() { return this.questionForm.get('answer'); }
-  get answers():FormArray { return this.questionForm.get('answers') as FormArray; }
-  addAnswer() { this.answers.push(new FormControl(''))}
+  get answers(): FormArray { return this.questionForm.get('answers') as FormArray; }
+  addAnswer() { this.answers.push(new FormControl('')); }
   removeAnswer(i: number) { this.answers.removeAt(i); }
 
   ngOnInit() {
     this.answers.disable();
     this.subscription.add(this.route.params.subscribe(params => {
-      this.editMode = params['id'] as boolean;
-      if (!this.editMode) return;
-      this.loadQuestion(+params['id']);
+      this.editMode = params.id as boolean;
+      if (!this.editMode) { return; }
+      this.loadQuestion(params.id);
     }));
   }
 
   loadQuestion(id) {
     this.subscription.add(this.service.getQuestion(id).subscribe((data: {}) => {
-      const question:any = data;
+      const question: any = data;
       this.id.patchValue(question.id);
       this.question.patchValue(question.question);
       this.type.patchValue(question.type);
       this.answer.patchValue(question.answer);
-      question.answers.forEach(x=> this.answers.push(this.fb.control(x)));
+      question.answers.forEach(x => this.answers.push(this.fb.control(x)));
       this.changeType(question.type);
     }));
   }
 
-  createQuestion(question:Question) {
+  createQuestion(question: Question) {
     this.subscription.add(this.service.createQuestion(question).subscribe(() => {
       return this.router.navigate(['/questions']);
     }));
   }
 
-  updateQuestion(question:Question) {
+  updateQuestion(question: Question) {
     this.subscription.add(this.service.updateQuestion(question.id, question).subscribe(() => {
       return this.router.navigate(['/questions']);
     }));
@@ -77,7 +77,7 @@ export class QuestionFormComponent implements OnInit, OnDestroy {
   }
 
   onSubmit() {
-    const question:Question = {
+    const question: Question = {
       id: this.id.value,
       question: this.question.value,
       answer: this.answer.value,
