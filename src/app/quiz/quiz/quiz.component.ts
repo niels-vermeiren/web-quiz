@@ -1,4 +1,4 @@
-import {Component, OnDestroy, OnInit, QueryList, ViewChild, ViewChildren} from '@angular/core';
+import {Component, OnDestroy, ViewChild} from '@angular/core';
 import {Subscription} from "rxjs";
 import {Router} from "@angular/router";
 import {FormBuilder, FormGroup} from "@angular/forms";
@@ -7,14 +7,12 @@ import {QuestionService} from "../../question/shared/service/question.service";
 import {CountdownProgressBarComponent} from "../countdown-progress-bar/countdown-progress-bar.component";
 import {QuestionType} from "../../question/shared/question-type";
 
-
 @Component({
   selector: 'app-quiz',
   templateUrl: './quiz.component.html',
   styleUrls: ['./quiz.component.less']
 })
 export class QuizComponent implements OnDestroy {
-
   questions:any = [];
   subscription = new Subscription();
   currentQuestionIndex = 0;
@@ -45,19 +43,30 @@ export class QuizComponent implements OnDestroy {
   }
 
   nextQuestion() {
-    if(this.answer.touched && this.answerIsCorrect()) this.score +=1;
+    if (this.answerIsCorrect()) this.score +=1;
     this.currentQuestion = this.questions[this.currentQuestionIndex++];
-    if (this.currentQuestionIndex - 1 == this.questions.length) {
+    if (this.isPastLastQuestion()) {
       this.currentQuestion = undefined;
-      if (this.countdownComponent) this.countdownComponent.stopTimer();
-      return;
+      return this.stopTimer();
     }
     this.answer.patchValue("");
+    this.resetTimer();
+  }
+
+  stopTimer() {
+    if (this.countdownComponent) this.countdownComponent.stopTimer();
+  }
+
+  resetTimer() {
     if (this.countdownComponent) this.countdownComponent.resetTimer();
   }
 
+  isPastLastQuestion(): boolean {
+    return this.currentQuestionIndex - 1 == this.questions.length;
+  }
+
   answerIsCorrect():boolean {
-    return this.currentQuestion.answer == this.answer.value;
+    return this.answer.touched && this.currentQuestion.answer == this.answer.value;
   }
 
   ngOnDestroy(): void {
