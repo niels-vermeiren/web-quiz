@@ -1,8 +1,6 @@
 import {async, ComponentFixture, fakeAsync, TestBed, tick} from '@angular/core/testing';
 
-import { CountdownProgressBarComponent } from './countdown-progress-bar.component';
-import {RouterModule} from "@angular/router";
-import {HttpClientModule} from "@angular/common/http";
+import {CountdownProgressBarComponent} from './countdown-progress-bar.component';
 
 describe('CountdownProgressBarComponent', () => {
   let component: CountdownProgressBarComponent;
