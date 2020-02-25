@@ -1,6 +1,12 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import {async, ComponentFixture, inject, TestBed} from '@angular/core/testing';
 
-import { UserListComponent } from './user-list.component';
+import {UserListComponent} from './user-list.component';
+import {RouterModule} from "@angular/router";
+import {HttpClientModule} from "@angular/common/http";
+import {HttpClientTestingModule, HttpTestingController} from "@angular/common/http/testing";
+import {QuestionService} from "../../question/shared/service/question.service";
+import {User} from "../shared/user";
+import {UserService} from "../shared/service/user.service";
 
 describe('UserListComponent', () => {
   let component: UserListComponent;
@@ -8,7 +14,8 @@ describe('UserListComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ UserListComponent ]
+      declarations: [ UserListComponent ],
+      imports: [RouterModule, HttpClientModule, HttpClientTestingModule]
     })
     .compileComponents();
   }));
@@ -19,7 +26,16 @@ describe('UserListComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
-  });
+  it('users are retrieved successfully', inject([HttpTestingController, UserService],
+    (httpMock: HttpTestingController, service: UserService) => {
+      let users:User[] = [
+        { id: 1, email: 'niels@gmail.com', password: 'This is a question' }
+      ];
+      component.users$.subscribe(user => {
+        expect(user.email).toEqual(users[0].email);
+      });
+      const req = httpMock.match(service.apiUrl);
+      expect(req[0].request.method).toEqual('GET');
+      req[0].flush(users);
+    }));
 });
