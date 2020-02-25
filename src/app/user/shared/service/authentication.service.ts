@@ -16,9 +16,7 @@ export class AuthenticationService {
   };
   isAuthenticated$ = new BehaviorSubject<boolean>(false);
 
-  constructor(private http:HttpClient) {
-
-  }
+  constructor(private http:HttpClient) {}
 
   login(user) : Observable<AuthenticationResponse> {
     return this.http.post<AuthenticationResponse>(this.apiUrl + "login",

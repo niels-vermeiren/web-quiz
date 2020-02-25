@@ -7,14 +7,13 @@ import {catchError, switchMap} from "rxjs/operators";
 @Injectable()
 export class IsAuthenticatedGuard implements CanActivate, OnDestroy{
   subscription = new Subscription();
-
   constructor(private authService: AuthenticationService, private router: Router) {}
 
   canActivate() {
     return this.authService.isUserAuthenticated().pipe(
       switchMap(()=> {
         return of(true);
-      }),catchError(()=> {
+      }), catchError(()=> {
         this.router.navigate(["login"]);
         return of(false);
       })
