@@ -1,5 +1,4 @@
-import {async, ComponentFixture, fakeAsync, inject, TestBed} from '@angular/core/testing';
-
+import {async, ComponentFixture, inject, TestBed} from '@angular/core/testing';
 import {NavigationComponent} from './navigation.component';
 import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import {HttpClientTestingModule, HttpTestingController} from '@angular/common/http/testing';
@@ -43,7 +42,7 @@ describe('NavigationComponent', () => {
 
   it('after login isAuthenticated is true', inject([HttpTestingController, AuthenticationService],
     (httpMock: HttpTestingController, service: AuthenticationService) => {
-    service.isUserAuthenticated().subscribe((data: {}) => {
+    service.isUserAuthenticated().subscribe((data: { status }) => {
       expect(data.status).toEqual('ok');
     });
     const req = httpMock.expectOne(`${service.apiUrl}600/users/null`);

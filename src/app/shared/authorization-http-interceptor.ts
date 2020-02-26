@@ -10,7 +10,6 @@ export class AuthorizationHttpInterceptor implements HttpInterceptor {
         Authorization: `Bearer ${localStorage.getItem('learnAngularToken')}`
       }
     });
-
     return next.handle(req);
   }
 }

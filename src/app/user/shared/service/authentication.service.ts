@@ -16,17 +16,17 @@ export class AuthenticationService {
   };
   isAuthenticated$ = new BehaviorSubject<boolean>(false);
 
-  constructor(private http: HttpClient) {}
+  constructor(private _http: HttpClient) {}
 
   login(user): Observable<AuthenticationResponse> {
-    return this.http.post<AuthenticationResponse>(this.apiUrl + 'login',
+    return this._http.post<AuthenticationResponse>(this.apiUrl + 'login',
       { email: user.email, password: user.password }, this.httpOptions);
   }
 
   isUserAuthenticated(): Observable<Response> {
     const userId = localStorage.getItem('learnAngularUserId');
 
-    return this.http.get<Response>(`${this.apiUrl}600/users/${userId}`, this.httpOptions)
+    return this._http.get<Response>(`${this.apiUrl}600/users/${userId}`, this.httpOptions)
       .pipe(
         share(),
         tap(x => this.isAuthenticated$.next(true)),

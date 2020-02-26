@@ -11,7 +11,7 @@ import {QuestionService} from '../shared/service/question.service';
 export class QuestionListComponent implements OnInit, OnDestroy {
   questions$: Observable<Question>;
   subscription: Subscription;
-  constructor(private service: QuestionService) {}
+  constructor(private _service: QuestionService) {}
 
   ngOnInit() {
     this.subscription = new Subscription();
@@ -19,11 +19,11 @@ export class QuestionListComponent implements OnInit, OnDestroy {
   }
 
   loadQuestions() {
-   this.questions$ = this.service.getQuestions();
+   this.questions$ = this._service.getQuestions();
   }
 
   removeQuestion(id: number) {
-    this.subscription = this.service.deleteQuestion(id).subscribe((d) => this.loadQuestions());
+    this.subscription = this._service.deleteQuestion(id).subscribe((d) => this.loadQuestions());
   }
 
   ngOnDestroy() {

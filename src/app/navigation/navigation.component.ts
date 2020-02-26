@@ -9,9 +9,9 @@ import {Observable} from 'rxjs';
 })
 export class NavigationComponent {
   navbarOpen = false;
-  isAuthenticated$: Observable<boolean> = this.authService.isAuthenticated$;
+  isAuthenticated$: Observable<boolean> = this._authService.isAuthenticated$;
 
-  constructor(private authService: AuthenticationService) {}
+  constructor(private _authService: AuthenticationService) {}
 
   toggleNavbar() {
     this.navbarOpen = !this.navbarOpen;

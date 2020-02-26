@@ -1,6 +1,6 @@
 <div class="form-container">
   <form [formGroup]="questionForm" (ngSubmit)="onSubmit()">
-    <div class="alert alert-danger" *ngIf="!questionForm.valid && this.showValidation">
+    <div class="alert alert-danger" *ngIf="!questionForm.valid && this.submitted">
       <div *ngIf="question.invalid">
         <div *ngIf="question.errors.required">Question is required.</div>
       </div>
@@ -15,7 +15,7 @@
         <div *ngIf="answers.errors.minlength">Minimum 2 answers are required.</div>
       </div>
     </div>
-    <div class="alert alert-success" *ngIf="questionForm.valid && this.showValidation">We're all good!</div>
+    <div class="alert alert-success" *ngIf="questionForm.valid && this.submitted">We're all good!</div>
     <div class="form-group">
       <label for="questionInput">Question</label>
       <input type="text" formControlName="question" class="form-control" id="questionInput">
@@ -45,7 +45,6 @@
       <label for="answerInput">Correct Answer</label>
       <input type="text" formControlName="answer" class="form-control" id="answerInput">
     </div>
-    <button type="submit" [disabled]="!questionForm.valid && showValidation" class="btn btn-info"
-            (click)="this.showValidation = true; this.submitted = true;">Opslaan</button>
+    <button type="submit" [disabled]="!questionForm.valid && submitted" class="btn btn-info">Opslaan</button>
   </form>
 </div>

@@ -21,15 +21,14 @@ export class CountdownProgressBarComponent implements OnInit, OnDestroy {
     this.maxTime = this.time;
     this.subscription = interval(1000).subscribe(() => {
       this.updateTime();
+      this.resetTimer();
     });
   }
 
   updateTime() {
     this.time --;
-    if (this.time < 0) {
-      this.nextQuestion.emit();
-      this.resetTimer();
-    }
+    if (this.time >= 0) { return; }
+    this.nextQuestion.emit();
   }
 
   resetTimer() {

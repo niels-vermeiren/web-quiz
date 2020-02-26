@@ -15,10 +15,10 @@ export class RegisterComponent implements OnDestroy {
   registeredSuccessfully = false;
   subscription = new Subscription();
 
-  constructor(private fb: FormBuilder, private userService: UserService) {
-    this.registerForm = this.fb.group({
-      email: this.fb.control('', [Validators.required, Validators.email]),
-      password: this.fb.control('', Validators.required)
+  constructor(private _fb: FormBuilder, private _userService: UserService) {
+    this.registerForm = this._fb.group({
+      email: this._fb.control('', [Validators.required, Validators.email]),
+      password: this._fb.control('', Validators.required)
     });
   }
 
@@ -26,10 +26,9 @@ export class RegisterComponent implements OnDestroy {
   get password() { return this.registerForm.get('password'); }
 
   onSubmit() {
-    const user: User = {
-      id: 0, email: this.email.value, password: this.password.value
-    };
-    this.subscription = this.userService.createUser(user).subscribe(() => {
+    this.showValidation = true;
+    const user: User = { id: 0, email: this.email.value, password: this.password.value };
+    this.subscription = this._userService.createUser(user).subscribe(() => {
       this.registeredSuccessfully = true;
     }, () => {
       this.registeredSuccessfully = false;

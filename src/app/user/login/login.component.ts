@@ -14,10 +14,10 @@ export class LoginComponent {
   showValidation = false;
   errorMessage;
 
-  constructor(private fb: FormBuilder, private authService: AuthenticationService, private router: Router) {
-    this.loginForm = this.fb.group({
-      email: this.fb.control('', [Validators.required, Validators.email]),
-      password: this.fb.control('', Validators.required)
+  constructor(private _fb: FormBuilder, private _authService: AuthenticationService, private _router: Router) {
+    this.loginForm = this._fb.group({
+      email: this._fb.control('', [Validators.required, Validators.email]),
+      password: this._fb.control('', Validators.required)
     });
   }
 
@@ -34,10 +34,12 @@ export class LoginComponent {
   get password() { return this.loginForm.get('password'); }
 
   onSubmit() {
+    this.showValidation = true;
+    this.errorMessage = undefined;
     const user: User = { id: 0, email: this.email.value, password: this.password.value };
-    this.authService.login(user).subscribe((data) => {
+    this._authService.login(user).subscribe((data) => {
         LoginComponent.setAuthorizationDataOnLocalStorage(data.accessToken);
-        return this.router.navigate(['/']);
+        return this._router.navigate(['/']);
       }, () => { this.errorMessage = 'Wrong credentials.'; }
     );
   }

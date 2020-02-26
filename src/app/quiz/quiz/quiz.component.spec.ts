@@ -1,5 +1,4 @@
-import {async, ComponentFixture, inject, TestBed} from '@angular/core/testing';
-
+import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 import {QuizComponent} from './quiz.component';
 import {ReactiveFormsModule} from '@angular/forms';
 import {RouterModule} from '@angular/router';
@@ -10,9 +9,9 @@ import {Question} from '../../question/shared/question';
 import {CountdownProgressBarComponent} from '../countdown-progress-bar/countdown-progress-bar.component';
 
 describe('QuizComponent', () => {
-  let component: QuizComponent;
-  let fixture: ComponentFixture<QuizComponent>;
-
+  let component: QuizComponent, fixture: ComponentFixture<QuizComponent>;
+  let service: QuestionService;
+  let httpMock: HttpTestingController;
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [ QuizComponent, CountdownProgressBarComponent ],
@@ -27,16 +26,16 @@ describe('QuizComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(QuizComponent);
     component = fixture.componentInstance;
-
     fixture.detectChanges();
+    service = TestBed.get(QuestionService);
+    httpMock = TestBed.get(HttpTestingController);
   });
 
   it('should create', () => {
     expect(component).toBeTruthy();
   });
 
-  it('first question is loaded after component initialization', inject([HttpTestingController, QuestionService],
-    (httpMock: HttpTestingController, service: QuestionService) => {
+  it('first question is loaded after component initialization', () => {
       const questions: Question[] = [
         {id: 1, type: 'Normal', question: 'This is the first question', answer: '', answers: []},
         {id: 2, type: 'Normal', question: 'This is the second question', answer: '', answers: []}
@@ -50,10 +49,9 @@ describe('QuizComponent', () => {
       const req = httpMock.expectOne(service.apiUrl);
       expect(req.request.method).toEqual('GET');
       req.flush(questions);
-    }));
+    });
 
-  it('score is incremented by one if the correct answer is given', inject([HttpTestingController, QuestionService],
-    (httpMock: HttpTestingController, service: QuestionService) => {
+  it('score is incremented by one if the correct answer is given', () => {
       const questions: Question[] = [
         {id: 1, type: 'Normal', question: 'This is the first question', answer: 'the answer', answers: []},
       ];
@@ -67,10 +65,9 @@ describe('QuizComponent', () => {
       const req = httpMock.expectOne(service.apiUrl);
       req.flush(questions);
       expect(component.score).toBe(1);
-    }));
+    });
 
-  it('reset timer after every question and stop timer when no more questions',
-    inject([HttpTestingController, QuestionService], (httpMock: HttpTestingController, service: QuestionService) => {
+  it('reset timer after every question and stop timer when no more questions', () => {
       spyOn(component, 'resetTimer');
       spyOn(component, 'stopTimer');
       const questions: Question[] = [
@@ -85,5 +82,5 @@ describe('QuizComponent', () => {
       });
       const req = httpMock.expectOne(service.apiUrl);
       req.flush(questions);
-    }));
+    });
 });

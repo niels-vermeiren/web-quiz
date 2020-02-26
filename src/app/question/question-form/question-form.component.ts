@@ -13,22 +13,30 @@ import {QuestionType} from '../shared/question-type';
 })
 export class QuestionFormComponent implements OnInit, OnDestroy {
   editMode = false;
-  showValidation = false;
   questionForm: FormGroup;
   subscription = new Subscription();
   submitted = false;
   questionTypes = QuestionType;
 
-  constructor(private fb: FormBuilder, private route: ActivatedRoute, private service: QuestionService, private router: Router) {
-    this.questionForm = this.fb.group({
-      id: this.fb.control(''),
-      question: this.fb.control('', Validators.required),
-      type: this.fb.control('', Validators.required),
-      answer: this.fb.control('', Validators.required),
-      answers: this.fb.array([], [
+  constructor(private _fb: FormBuilder, private _route: ActivatedRoute, private _service: QuestionService, private _router: Router) {
+    this.questionForm = this._fb.group({
+      id: this._fb.control(''),
+      question: this._fb.control('', Validators.required),
+      type: this._fb.control('', Validators.required),
+      answer: this._fb.control('', Validators.required),
+      answers: this._fb.array([], [
         Validators.required, Validators.minLength(2)
       ])
     });
+  }
+
+  ngOnInit() {
+    this.answers.disable();
+    this.subscription.add(this._route.params.subscribe(params => {
+      this.editMode = params.id as boolean;
+      if (!this.editMode) { return; }
+      this.loadQuestion(params.id);
+    }));
   }
 
   get id() { return this.questionForm.get('id'); }
@@ -39,36 +47,23 @@ export class QuestionFormComponent implements OnInit, OnDestroy {
   addAnswer() { this.answers.push(new FormControl('')); }
   removeAnswer(i: number) { this.answers.removeAt(i); }
 
-  ngOnInit() {
-    this.answers.disable();
-    this.subscription.add(this.route.params.subscribe(params => {
-      this.editMode = params.id as boolean;
-      if (!this.editMode) { return; }
-      this.loadQuestion(params.id);
-    }));
-  }
-
   loadQuestion(id) {
-    this.subscription.add(this.service.getQuestion(id).subscribe((data: {}) => {
+    this.subscription.add(this._service.getQuestion(id).subscribe((data: {}) => {
       const question: any = data;
-      this.id.patchValue(question.id);
-      this.question.patchValue(question.question);
-      this.type.patchValue(question.type);
-      this.answer.patchValue(question.answer);
-      question.answers.forEach(x => this.answers.push(this.fb.control(x)));
+      this.questionToForm(question);
       this.changeType(question.type);
     }));
   }
 
   createQuestion(question: Question) {
-    this.subscription.add(this.service.createQuestion(question).subscribe(() => {
-      return this.router.navigate(['/questions']);
+    this.subscription.add(this._service.createQuestion(question).subscribe(() => {
+      return this._router.navigate(['/questions']);
     }));
   }
 
   updateQuestion(question: Question) {
-    this.subscription.add(this.service.updateQuestion(question.id, question).subscribe(() => {
-      return this.router.navigate(['/questions']);
+    this.subscription.add(this._service.updateQuestion(question.id, question).subscribe(() => {
+      return this._router.navigate(['/questions']);
     }));
   }
 
@@ -76,14 +71,28 @@ export class QuestionFormComponent implements OnInit, OnDestroy {
     return value === this.questionTypes.normal ? this.answers.disable() : this.answers.enable();
   }
 
-  onSubmit() {
-    const question: Question = {
+  questionToForm(question: Question) {
+    this.id.patchValue(question.id);
+    this.question.patchValue(question.question);
+    this.type.patchValue(question.type);
+    this.answer.patchValue(question.answer);
+    question.answers.forEach(x => this.answers.push(this._fb.control(x)));
+  }
+
+  formToQuestion(): Question {
+    return {
       id: this.id.value,
       question: this.question.value,
       answer: this.answer.value,
       answers: this.answers.value,
       type: this.type.value
     };
+  }
+
+  onSubmit() {
+    this.submitted = true;
+    const question = this.formToQuestion();
+    if (this.questionForm.invalid) { return false; }
     return this.editMode ? this.updateQuestion(question) : this.createQuestion(question);
   }
 

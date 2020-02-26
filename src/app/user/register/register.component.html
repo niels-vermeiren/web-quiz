@@ -1,7 +1,4 @@
 <form class="form-container" [formGroup]="registerForm" (ngSubmit)="onSubmit()">
-  <div class="alert alert-success" *ngIf="registeredSuccessfully">
-    User registered successfully!
-  </div>
   <div class="alert alert-danger" *ngIf="!registerForm.valid && this.showValidation && !registeredSuccessfully">
     <div *ngIf="email.invalid">
       <div *ngIf="email.errors.required">E-mail is required.</div>
@@ -13,9 +10,7 @@
   </div>
   <label>E-mail:</label>
   <input type="text" name="email" class="form-control form-input" formControlName="email"/>
-
   <label>Password:</label>
   <input type="password" name="password" class="form-control form-input" formControlName="password"/>
-
-  <button class="btn btn-success login-btn" type="submit" (click)="showValidation = true;">Register</button>
+  <button class="btn btn-success login-btn" type="submit">Register</button>
 </form>

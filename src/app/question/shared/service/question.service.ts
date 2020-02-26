@@ -9,46 +9,46 @@ import {Question} from '../question';
 })
 export class QuestionService {
   apiUrl = 'http://localhost:3000/questions/';
-  private httpOptions = {
+  private _httpOptions = {
     headers: new HttpHeaders({
       'Content-Type': 'application/json'
     })
   };
 
-  constructor(private http: HttpClient) { }
+  constructor(private _http: HttpClient) { }
 
   getQuestions(): Observable<Question> {
-    return this.http.get<Question>(this.apiUrl).pipe(
+    return this._http.get<Question>(this.apiUrl).pipe(
       retry(1),
       catchError(this.handleError)
     );
   }
 
   getQuestion(id): Observable<Question> {
-    return this.http.get<Question>(this.apiUrl + id).pipe(
+    return this._http.get<Question>(this.apiUrl + id).pipe(
       retry(1),
       catchError(this.handleError)
     );
   }
 
   createQuestion(question): Observable<Question> {
-    return this.http.post<Question>(this.apiUrl, JSON.stringify(question),
-      this.httpOptions).pipe(
+    return this._http.post<Question>(this.apiUrl, JSON.stringify(question),
+      this._httpOptions).pipe(
       retry(1),
       catchError(this.handleError)
     );
   }
 
   updateQuestion(id, question): Observable<Question> {
-    return this.http.put<Question>(this.apiUrl + id, question,
-      this.httpOptions).pipe(
+    return this._http.put<Question>(this.apiUrl + id, question,
+      this._httpOptions).pipe(
       retry(1),
       catchError(this.handleError)
     );
   }
 
   deleteQuestion(id): Observable<Question> {
-    return this.http.delete<Question>(this.apiUrl + id, this.httpOptions).pipe(
+    return this._http.delete<Question>(this.apiUrl + id, this._httpOptions).pipe(
       retry(1),
       catchError(this.handleError)
     );

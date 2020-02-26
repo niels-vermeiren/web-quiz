@@ -11,7 +11,7 @@ import {User} from '../shared/user';
 export class UserListComponent implements OnInit, OnDestroy {
   users$: Observable<User>;
   subscription: Subscription;
-  constructor(private service: UserService) {}
+  constructor(private _service: UserService) {}
 
   ngOnInit() {
     this.subscription = new Subscription();
@@ -19,11 +19,11 @@ export class UserListComponent implements OnInit, OnDestroy {
   }
 
   loadUsers() {
-    this.users$ = this.service.getUsers();
+    this.users$ = this._service.getUsers();
   }
 
   removeUser(id: number) {
-    this.subscription = this.service.deleteUser(id).subscribe((d) => this.loadUsers());
+    this.subscription = this._service.deleteUser(id).subscribe((d) => this.loadUsers());
   }
 
   ngOnDestroy() {
